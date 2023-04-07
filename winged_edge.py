@@ -49,7 +49,7 @@ class WingedEdgeCaracter:
         for i in range(1, int(self.valores[0] * 4), 4):
             self.vertices.append(Vertice((self.valores[i + 1] + 1)/2, (-self.valores[i + 2] + 1)/2, (self.valores[i + 3] + 1)/2, None))
 
-        print([vertice.x for vertice in self.vertices], [vertice.y for vertice in self.vertices],[vertice.z for vertice in self.vertices])
+        #print([vertice.x for vertice in self.vertices], [vertice.y for vertice in self.vertices],[vertice.z for vertice in self.vertices])
 
         #formacao das arestas
         for i in range(int(self.valores[0] * 4 + 1), len(self.valores), 2):
