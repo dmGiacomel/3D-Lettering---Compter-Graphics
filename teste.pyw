@@ -19,9 +19,6 @@ class Window:
         Wnd.resizable(width = False, height = False)
         Wnd.title("Tabajara Painter")
         self.canvas = Canvas(Wnd, width = 700, height = 500, bg = rgb(200, 200, 200), cursor = "hand2", highlightthickness=1, highlightbackground="black")
-        #self.canvas.bind("<1>", self.draw)
-        #self.canvas.bind("<1>", self.StartPol)
-        #self.canvas.bind("<3>", self.EndPol)
         self.canvas.pack()
         self.Frm = Frame(Wnd)
         self.Frm.pack()
@@ -31,11 +28,6 @@ class Window:
 
         self.Btn = Button(self.Frm, text = "escrever", command= lambda: self.draw(self), fg = "black", bg = "pink")
         self.Btn.pack(side = LEFT)
-
-        # self.textLbl = StringVar()
-        # self.textLbl.set("teste x e y")
-        # self.Lbl = Label(self.Frm, textvariable = self.textLbl, font = ("Verdana", "13", "bold"))
-        # self.Lbl.pack()
 
 
     def draw(self, event):
@@ -67,32 +59,6 @@ class Window:
 
             deslocamentopx = deslocamentopx + 1
             arestas.clear()
-
-
-        # a_winged_edge = WingedEdgeCaracter("a_norm.txt")
-
-        # arestas = []
-        # for i in a_winged_edge.arestas:
-        #     #arestas.append((paraCoordenadasDeTela((i.vertice_final.x, i.vertice_final.y), widthm1, heightm1), paraCoordenadasDeTela((i.vertice_final.x, i.vertice_final.y), widthm1, heightm1)))
-        #     arestas.append(paraCoordenadasDeTela((i.vertice_final.x, i.vertice_final.y), widthm1, heightm1, 0.1, 0.1, 0.2))
-        #     arestas.append(paraCoordenadasDeTela((i.vertice_inicial.x, i.vertice_inicial.y), widthm1, heightm1, 0.1, 0.1, 0.2))
-
-        # #print(arestas)
-
-        # for i in range(0, len(arestas), 2): 
-        #     self.canvas.create_line(arestas[i], arestas[i + 1], fill = rgb(255, 0, 0))
-
-        # arestas.clear()
-
-        # b_winged_edge = WingedEdgeCaracter("b_norm.txt")
-        # for i in b_winged_edge.arestas:
-        #     #arestas.append((paraCoordenadasDeTela((i.vertice_final.x, i.vertice_final.y), widthm1, heightm1), paraCoordenadasDeTela((i.vertice_final.x, i.vertice_final.y), widthm1, heightm1)))
-        #     arestas.append(paraCoordenadasDeTela((i.vertice_final.x, i.vertice_final.y), widthm1, heightm1, 1.2, 0.1, 0.2))
-        #     arestas.append(paraCoordenadasDeTela((i.vertice_inicial.x, i.vertice_inicial.y), widthm1, heightm1, 1.2, 0.1, 0.2))
-
-        # for i in range(0, len(arestas), 2): 
-        #             self.canvas.create_line(arestas[i], arestas[i + 1], fill = rgb(255, 0, 0))
-
 
 #---------------------------------------------------------------------------------------------------------------
 
