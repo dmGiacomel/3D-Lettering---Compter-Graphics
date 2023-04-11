@@ -18,7 +18,7 @@ class Face:
     def __init__ (self):
         pass
 
-class Aresta:
+class Aresta: 
 
     def __init__ (self, vertice_inicial = None, vertice_final = None, face_esquerda=None, face_direita=None, vertice_face_esquerda_prev=None, vertice_face_esquerda_next=None, vertice_face_direta_prev=None, vertice_face_direta_next=None):
         self.vertice_inicial = vertice_inicial
@@ -48,13 +48,27 @@ class WingedEdgeCaracter:
         #extracao das coordenadas dos vertices do arquivo de entrada
         for i in range(1, int(self.valores[0] * 4), 4):
             self.vertices.append(Vertice((self.valores[i + 1] + 1)/2, (-self.valores[i + 2] + 1)/2, (self.valores[i + 3] + 1)/2, None))
-
-        #print([vertice.x for vertice in self.vertices], [vertice.y for vertice in self.vertices],[vertice.z for vertice in self.vertices])
+        
+        #duplicacao das arestas para face de trás
+        for i in range(len(self.vertices)):
+            self.vertices.append(Vertice(self.vertices[i].x, self.vertices[i].y, 0, None))
 
         #formacao das arestas
         for i in range(int(self.valores[0] * 4 + 1), len(self.valores), 2):
             ar = Aresta(self.vertices[int(self.valores[i])], self.vertices[int(self.valores[i + 1])], Face(), Face(), Vertice(), Vertice(), Vertice(), Vertice())
             self.arestas.append(ar)
+
+        #ietrando em lista de arestas para descobrir e inserir arestas_incidentes nos vertices
+        for i in self.vertices: 
+            for j in self.arestas: 
+                if (j.vertice_inicial == i):
+                    i.aresta_incidente = j
+                    break
+                if(j.vertice_final == i):
+                    i.aresta_incidente = j
+                    break
+
+        
         
 
 
