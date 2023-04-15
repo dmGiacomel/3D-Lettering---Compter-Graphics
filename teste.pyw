@@ -47,7 +47,7 @@ class Window:
                 deslocamentopx = deslocamentopx + 0.5
                 continue
 
-            arquivo = l + "_norm.txt"
+            arquivo = "letras_numeros/" + l + "_norm.txt"
             winged_edge = WingedEdgeCaracter(arquivo)
             arestas = []
             for i in winged_edge.arestas:
