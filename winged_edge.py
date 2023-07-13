@@ -68,13 +68,6 @@ class WingedEdgeCaracter:
                     i.aresta_incidente = j
                     break
 
-        
-        
-
-
-
-
-
 '''
 valor = range(10)
 print([i if i == 2 else 0 for i in valor])
