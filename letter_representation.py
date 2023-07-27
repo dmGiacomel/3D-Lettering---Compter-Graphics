@@ -3,6 +3,7 @@ class Vertice:
         self.x = x
         self.y = y
         self.z = z
+        self.convert = 0
         
 
 class Aresta: 
@@ -29,9 +30,12 @@ class Letra:
         self.valores = [float(s) for s in self.valores]
 
         #extracao das coordenadas dos vertices do arquivo de entrada
-        for i in range(1, int(self.valores[0] * 4), 4):
-            self.vertices.append(Vertice((self.valores[i + 1] + 1)/2, (-self.valores[i + 2] + 1)/2, (self.valores[i + 3] + 1)/2))
+        # for i in range(1, int(self.valores[0] * 4), 4):
+        #     self.vertices.append(Vertice((self.valores[i + 1])/2, (-self.valores[i + 2] + 1)/2, (self.valores[i + 3] + 1)/2))
         
+        for i in range(1, int(self.valores[0] * 4), 4):
+            self.vertices.append(Vertice((self.valores[i + 1]), (self.valores[i + 2]), (self.valores[i + 3])))
+
         #formacao das arestas
         for i in range(int(self.valores[0] * 4 + 2), int(self.valores[0] * 4 + 1) + int(self.valores[int(self.valores[0] * 4 + 1)] * 3), 3):
             self.arestas.append(Aresta(self.vertices[int(self.valores[i + 1])], self.vertices[int(self.valores[i + 2])]))
@@ -46,20 +50,17 @@ class Letra:
         #formacao das faces            
         indice = 0
         onde_estou = int(self.valores[0] * 4 + 1) + int(self.valores[int(self.valores[0] * 4 + 1)] * 3) + 2
-        #print("onde estou = ", self.valores[onde_estou])
         while(indice < self.valores[int(self.valores[0] * 4 + 1) + int(self.valores[int(self.valores[0] * 4 + 1)] * 3) + 1]):
-            #print("valor de condicao = ", self.valores[int(self.valores[0] * 4 + 1) + int(self.valores[int(self.valores[0] * 4 + 1)] * 3) + 1])
             arestas_da_face = []
             num_arestas_nessa_face = self.valores[onde_estou]
-            #print(num_arestas_nessa_face)
             for i in range(1, int(num_arestas_nessa_face)+1): 
-                #print("Valor de self.valores na posicao que a gente quer pegar: ", int(self.valores[onde_estou + i])) 
                 qual_aresta_vou_pegar = int(self.valores[onde_estou + i])
                 arestas_da_face.append(self.arestas[qual_aresta_vou_pegar])
-
             self.faces.append(Face(arestas_da_face))
             indice += 1
             onde_estou += int(self.valores[onde_estou]) + 1
 
 
-l = Letra("letras_numeros/1_norm.txt")
+
+
+l = Letra("letras_numeros/0_norm.txt")
