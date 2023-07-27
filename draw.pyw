@@ -134,27 +134,101 @@ def desenhar_objeto(canvas, objeto, cor):
                 print(j.v1.x, j.v1.y, j.v2.x, j.v2.y)
     canvas.pack()
 
+def multiplica_z(objeto, extrusao):
+    for i in objeto.vertices:
+        if i.z == 1:
+            i.z *= extrusao
+
 class Window:
     def __init__(self, Wnd):
         Wnd.resizable(width = False, height = False)
-        Wnd.title("Tabajara Painter")
-        self.canvas = Canvas(Wnd, width = 1820, height = 1000, bg = rgb(200, 200, 200), highlightthickness=1, highlightbackground="black")
+        Wnd.title("3D Lettering")
+        self.canvas = Canvas(Wnd, width = 1280, height = 720, bg = rgb(200, 200, 200), highlightthickness=1, highlightbackground="black")
         self.canvas.pack()
 
-        letra = "./letras_numeros/0_norm.txt"
+        self.Frm = Frame(Wnd)
+        self.Frm.pack()
+
+        Label(self.Frm, text = "Frase: ", fg = "black").pack(side = LEFT)
+        self.letra = Entry(self.Frm, fg = "red", width = 5)
+        self.letra.pack(side = LEFT)
+
+        Label(self.Frm, text = "R: ", fg = "red").pack(side = LEFT)
+        self.R = Entry(self.Frm, fg = "red", width = 5)
+        self.R.pack(side = LEFT)
+        Label(self.Frm, text = "G: ", fg = "green").pack(side = LEFT)
+        self.G = Entry(self.Frm, fg = "red", width = 5)
+        self.G.pack(side = LEFT)
+        Label(self.Frm, text = "B: ", fg = "blue").pack(side = LEFT)
+        self.B = Entry(self.Frm, fg = "red", width = 5)
+        self.B.pack(side = LEFT)
+        
+        Label(self.Frm, text = "Extrusão: ", fg = "black").pack(side = LEFT)
+        self.extr = Entry(self.Frm, fg = "red", width = 5)
+        self.extr.pack(side = LEFT)
+
+        Label(self.Frm, text = "VRPx: ", fg = "black").pack(side = LEFT)
+        self.VRP_x = Entry(self.Frm, fg = "red", width = 5)
+        self.VRP_x.pack(side = LEFT)
+
+        Label(self.Frm, text = "VRPy: ", fg = "black").pack(side = LEFT)
+        self.VRP_y = Entry(self.Frm, fg = "red", width = 5)
+        self.VRP_y.pack(side = LEFT)
+
+        Label(self.Frm, text = "VRPz: ", fg = "black").pack(side = LEFT)
+        self.VRP_z = Entry(self.Frm, fg = "red", width = 5)
+        self.VRP_z.pack(side = LEFT)
+
+        Label(self.Frm, text = "Px: ", fg = "black").pack(side = LEFT)
+        self.P_x = Entry(self.Frm, fg = "red", width = 5)
+        self.P_x.pack(side = LEFT)
+
+        Label(self.Frm, text = "Py: ", fg = "black").pack(side = LEFT)
+        self.P_y = Entry(self.Frm, fg = "red", width = 5)
+        self.P_y.pack(side = LEFT)
+
+        Label(self.Frm, text = "Pz: ", fg = "black").pack(side = LEFT)
+        self.P_z = Entry(self.Frm, fg = "red", width = 5)
+        self.P_z.pack(side = LEFT)
+
+        self.Btn = Button(self.Frm, text = "escrever", command= lambda: self.draw(), fg = "black", bg = "pink")
+        self.Btn.pack(side = LEFT)
+
+    def draw(self):
+        self.canvas.delete("all")
+        n = self.letra.get()
+
+        letra = "./letras_numeros/" + n + "_norm.txt"
+        print(letra)
+
+        r = int(self.R.get())
+        g = int(self.G.get())
+        b = int(self.B.get())
+
+        cor = (r, g, b)
+
+        extrusao = float(self.extr.get())
+
+        global VRP_p
+        global P_p 
+        VRP_p = (float(self.VRP_x.get()), float(self.VRP_y.get()), float(self.VRP_z.get()))
+
+        P_p = (float(self.P_x.get()), float(self.P_y.get()), float(self.P_z.get()))
 
         object_front = Letra(letra)
         object_lateral = Letra(letra)
         object_top = Letra(letra)
         object_pers = Letra(letra)
+        multiplica_z(object_front, extrusao)
+        multiplica_z(object_lateral, extrusao)
+        multiplica_z(object_top, extrusao)
+        multiplica_z(object_pers, extrusao)
         #print(object_to_write.faces[0].arestas[0].v1.x)
 
         widthm1 = self.canvas.winfo_reqwidth() - 400
         heightm1 = self.canvas.winfo_reqheight() - 400
         u = (-4, 4)
         v = (-2, 2)
-
-        cor = (0, 0, 0)
 
         object_front = converter_pontos(object_front, 0, widthm1-200, 0, heightm1, u, v, 'f')
         desenhar_objeto(self.canvas, object_front, cor)
@@ -170,8 +244,6 @@ class Window:
         # v = (-0.5, 0.5)
         object_pers = converter_pontos(object_pers, 100, widthm1+500, 300, heightm1+300, u, v, 'p')
         desenhar_objeto(self.canvas, object_pers, cor)
-
-
 
 mainWindow = Tk()
 wind = Window(mainWindow)
